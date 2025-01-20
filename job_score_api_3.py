@@ -223,6 +223,7 @@ async def get_gpt4_response(prompt: str) -> JobMatchResult:
 async def process_job_matching(results: List[Dict[str, Any]], member_profile: Dict[str, Any]) -> Dict[str, int]:
     """Process job matching with GPT-4 and additional post-processing"""
     prompt = create_matching_prompt(results, member_profile)
+    # print(prompt)
     gpt4_result = await get_gpt4_response(prompt)
     
     # Post-processing to ensure consistency

@@ -132,7 +132,7 @@ def get_member_details(member):
         "Fortitude": member.get("FortitudeNames", "Unknown"),
         "Technical Skills": member.get("TechnicalSkillNames", "Unknown"),
         "Rank": member.get("Rank", "N/A"),
-        "Similarity (%)": member.get("Similarity (%)", "N/A")
+        "Similarity": member.get("Similarity", "N/A")
     }
     return details
 
@@ -165,7 +165,7 @@ async def explain_similarity(job_details, member_details, api_key):
     - Metacognition: {member_details['Metacognition']}
     - Technical Skills: {member_details['Technical Skills']}
     
-    The similarity score between this job and candidate is {member_details['Similarity (%)']}%.
+    The similarity score between this job and candidate is {member_details['Similarity']}%.
 
     Task: Analyze the job requirements and the candidate's profile to explain this similarity score. 
     Consider the following in your explanation:
@@ -428,7 +428,7 @@ async def process_recommendations(job_id: int, openai_api_key: str) -> Any:
                 member = members[member_idx]
                 member_details = get_member_details(member)
                 member_details["Rank"] = rank
-                member_details["Similarity (%)"] = f"{sim_percent:.2f}"
+                member_details["Similarity"] = f"{sim_percent:.2f}"
                 
                 # Call explain_similarity function asynchronously
                 member_details = await explain_similarity(job_details, member_details, openai_api_key)
